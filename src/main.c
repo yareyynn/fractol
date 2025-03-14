@@ -1,4 +1,4 @@
-#include "fractol.h"
+#include "../inc/fractol.h"
 int main(int argc, char **argv){
 	t_fractal fractal;
 	t_window window;
@@ -15,4 +15,19 @@ int main(int argc, char **argv){
 	fractal_init(&fractal, argv[1]);
 	render_init(&fractal, &window);
 
+}
+
+void fractal_init(t_fractal *fractal, char *name)
+{
+	if(ft_strncmp(name, "mandelbrot", 10) == 0)
+		mandelbrot(fractal);
+	else if(ft_strncmp(name, "julia", 10) == 0)
+		julia(fractal);
+	else if(ft_strncmp(name, "mandelbox", 10) == 0)
+		mandelbox(fractal);
+	else
+	{
+		ft_printf("Right arguement entry is: ./fractol <<fractal name>>\n");
+		exit(1);
+	}
 }

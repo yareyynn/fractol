@@ -9,14 +9,16 @@
 #include "color.h"
 #include "keys.h"
 
+# define MAX_ITER 50
+
+typedef_struct s_complex
+{
+	double	re;
+	double	im;
+}	t_complex;
+
 typedef struct s_fractal
 {
-	int		fractal;
-	int		max_iter;
-	double	x_min;
-	double	y_min;
-	double	x_max;
-	double	y_max;
 	double	zoom;
 	double	shift_x;
 	double	shift_y;
@@ -32,5 +34,9 @@ typedef struct s_window
 	int		line_len;
 	int		endian;
 }	t_window;
+
+void fractal_init(t_fractal *fractal, char *name);
+void fractal_val(t_fractal *fractal, char *name);
+void render_init(t_fractal *fractal, t_window *window);
 
 # endif
