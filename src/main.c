@@ -10,7 +10,17 @@ int main(int argc, char **argv){
 	}
 
 	window.mlx = mlx_init();
+	if(!window.mlx)
+	{
+		ft_printf("Error: mlx_init() failed\n");
+		return (1);
+	}
 	window.win = mlx_new_window(window.mlx, WIDTH, HEIGHT, "Fractol");
+	if(!window.win)
+	{
+		ft_printf("Error: mlx_new_window() failed\n");
+		return (1);
+	}
 
 	fractal_init(&fractal, argv[1]);
 	render_init(&fractal, &window);

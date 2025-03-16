@@ -1,10 +1,7 @@
 #include "../inc/fractol.h"
 void fractal_init(t_fractal *fractal, char *name){
-	int i;
-
 	fractal->zoom = 1.1;
 
-	i = 0;
 	if(ft_strncmp(name, "mandelbrot", 10) == 0)
 		fractal->name = "mandelbrot";
 	else if(ft_strncmp(name, "julia", 10) == 0)
