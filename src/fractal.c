@@ -1,14 +1,16 @@
 #include "../inc/fractol.h"
 void fractal_init(t_fractal *fractal, char *name){
-	fractal->zoom = 1;
-	fractal->shift_x = 0;
-	fractal->shift_y = 0;
+	int i;
+
+	fractal->zoom = 1.1;
+
+	i = 0;
 	if(ft_strncmp(name, "mandelbrot", 10) == 0)
-		mandelbrot(fractal);
+		fractal->name = "mandelbrot";
 	else if(ft_strncmp(name, "julia", 10) == 0)
-		julia(fractal);
+		fractal->name = "julia";
 	else if(ft_strncmp(name, "mandelbox", 10) == 0)
-		mandelbox(fractal);
+		fractal->name = "mandelbox";
 	else
 	{
 		ft_printf("Right arguement entry is: ./fractol <<fractal name>>\n");
@@ -18,47 +20,40 @@ void fractal_init(t_fractal *fractal, char *name){
 
 int mandelbrot_calc(t_fractal *fractal)
 {
-	double x;
-	double y;
-	double x_temp;
-	double y_temp;
-	double x0;
-	double y0;
+	double re;
+	double im;
+	double re_temp;
 	int i;
 
-	x = 0;
-	y = 0;
-	x0 = 0;
-	y0 = 0;
+	re = 0;
+	im = 0;
+
 	i = 0;
-	while (x * x + y * y <= 4 && i < MAX_ITER)
+	while ((re * re + im * im) <= 4 && i++ < MAX_ITER)
 	{
-		x_temp = x * x - y * y + x0;
-		y_temp = 2 * x * y + y0;
-		x = x_temp;
-		i++;
+		re_temp = re * re - im * im + fractal->shift_x;
+		im = 2.0 * re * im + fractal->shift_y;
+		re = re_temp;
 	}
 	return (i);
 }
 
 int julia_calc(t_fractal *fractal)
 {
-	double x;
-	double y;
-	double x_temp;
-	double y_temp;
-	double x0;
-	double y0;
+	double re;
+	double im;
+	double re_temp;
 	int i;
 
+	re = fractal->shift_x;
+	im = fractal->shift_y;
+
 	i = 0;
-	while (x * x + y * y <= 4 && i < MAX_ITER)
+	while ((re * re + im * im) <= 4 && i++ < MAX_ITER)
 	{
-		x_temp = x * x - y * y + x0;
-		y_temp = 2 * x * y + y0;
-		x = x_temp;
-		y = y_temp;
-		i++;
+		re_temp = re * re - im * im - 0.70176;
+		im = 2.0 * re * im + 0.3842;
+		re = re_temp;
 	}
 	return (i);
 }
