@@ -1,4 +1,5 @@
 #include "fractol.h"
+#include <stdio.h>
 
 int close_window(t_window *window)
 {
@@ -7,7 +8,7 @@ int close_window(t_window *window)
         exit(0);
 }
 
-int get_color(int iter)
+int set_color(int iter)
 {
     int color;
     int red;
@@ -15,12 +16,13 @@ int get_color(int iter)
     int blue;
 
     if (iter == MAX_ITER)
-        return (0x000000);
+        return (0xFF0000);
 
-    red = (int)iter*3 % 255;
-    green = (int)iter*3 % 255;
-    blue = (int)iter*3 % 255;
-    color = (red << 16) | (green << 8) | blue;
+    red = iter;
+    green = iter;
+    blue = iter;
+    color = (red << 16) + (green << 8) + blue;
+
     return (color);
 }
 
@@ -37,8 +39,8 @@ void ft_pixel_put(t_window *window, int x, int y, int color)
 
 void render_init(t_fractal *fractal, t_window *window)
 {
-    int x;
-    int y;
+    double x;
+    double y;
     int color;
     int iter;
 
@@ -56,18 +58,18 @@ void render_init(t_fractal *fractal, t_window *window)
         x = 0;
         while (x++ < WIDTH)
         {
-            fractal->shift_x = (x - WIDTH / 2) * (0.4 / WIDTH);
-            fractal->shift_y = (y - HEIGHT / 2) * (0.4 / HEIGHT);
+            fractal->shift_x = (double)((x - WIDTH / 2.0) * (4.0 / WIDTH));
+            fractal->shift_y = (double)((y - HEIGHT / 2.0) * (4.0 / HEIGHT));
 
             if(!ft_strncmp(fractal->name, "mandelbrot",10))
                 iter = mandelbrot_calc(fractal);
             else if(!ft_strncmp(fractal->name, "julia", 5))
                 iter = julia_calc(fractal);
 
-            color = get_color(iter);
-
+            color = set_color(iter);
             ft_pixel_put(window, x, y, color);
         }
     }
+    fractal->iter = iter;
     mlx_put_image_to_window(window->mlx, window->win, window->img, 0, 0);
 }

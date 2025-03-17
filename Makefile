@@ -7,7 +7,8 @@ INCLUDES_H = -Iinc -Ilibft -Iminilibx-linux
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = src/main.c src/fractal.c src/render.c
+SRC = src/main.c src/fractal.c src/render.c \
+	src/listeners.c
 
 OBJ = $(SRC:.c=.o)
 

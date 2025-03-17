@@ -1,6 +1,8 @@
 #include "../inc/fractol.h"
+#include <stdio.h>
+
 void fractal_init(t_fractal *fractal, char *name){
-	fractal->zoom = 1.1;
+	fractal->zoom = 1.0;
 
 	if(!ft_strncmp(name, "mandelbrot", 10))
 		fractal->name = "mandelbrot";
@@ -22,8 +24,8 @@ int mandelbrot_calc(t_fractal *fractal)
 	double re_temp;
 	int i;
 
-	re = fractal->shift_x;
-	im = fractal->shift_y;
+	re = 0.0;
+	im = 0.0;
 
 	i = 0;
 	while ((re * re + im * im) <= 4 && i++ < MAX_ITER)

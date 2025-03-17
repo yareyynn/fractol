@@ -25,5 +25,6 @@ int main(int argc, char **argv){
 	fractal_init(&fractal, argv[1]);
 	render_init(&fractal, &window);
 	mlx_hook(window.win, 17, 0, close_window, &window);
+	mlx_mouse_hook(window.win, scroll_listener, &fractal);
 	mlx_loop(window.mlx);
 }
