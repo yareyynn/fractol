@@ -2,11 +2,11 @@
 void fractal_init(t_fractal *fractal, char *name){
 	fractal->zoom = 1.1;
 
-	if(ft_strncmp(name, "mandelbrot", 10) == 0)
+	if(!ft_strncmp(name, "mandelbrot", 10))
 		fractal->name = "mandelbrot";
-	else if(ft_strncmp(name, "julia", 10) == 0)
+	else if(!ft_strncmp(name, "julia", 5))
 		fractal->name = "julia";
-	else if(ft_strncmp(name, "mandelbox", 10) == 0)
+	else if(ft_strncmp(name, "mandelbox", 10))
 		fractal->name = "mandelbox";
 	else
 	{
@@ -22,8 +22,8 @@ int mandelbrot_calc(t_fractal *fractal)
 	double re_temp;
 	int i;
 
-	re = 0;
-	im = 0;
+	re = fractal->shift_x;
+	im = fractal->shift_y;
 
 	i = 0;
 	while ((re * re + im * im) <= 4 && i++ < MAX_ITER)

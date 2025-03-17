@@ -8,8 +8,8 @@
 # include "../libft/libft.h"
 
 # define MAX_ITER 50
-# define WIDTH 5000
-# define HEIGHT 5000
+# define WIDTH 500
+# define HEIGHT 500
 
 typedef struct s_fractal
 {
@@ -34,7 +34,7 @@ void fractal_init(t_fractal *fractal, char *name);
 void render_init(t_fractal *fractal, t_window *window);
 int mandelbrot_calc(t_fractal *fractal);
 int julia_calc(t_fractal *fractal);
-int close_window(int keycode, t_window *window);
+int close_window(t_window *window);
 int get_color(int iter);
 void ft_pixel_put(t_window *window, int x, int y, int color);
 
