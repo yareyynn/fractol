@@ -1,25 +1,13 @@
-#include "fractol.h"
-
-int scroll_listener(int key, int x, int y, t_fractal *fractal)
+int scroll_listener(int key, int x, int y, t_fractal *fr)
 {
-    double zoom;
+    static int zoom;
 
-    zoom = 1.1;
+    zoom = ZOOM;
+    fr->mouse_x = (x - WIDTH / 2) / zoom + fr->shift_x;
+    fr->mouse_y = (y - HEIGHT / 2) / zoom + fr->shift_y;
 
-    if (key == SCR_UP)
-    {
-        fractal->shift_x = (x / fractal->zoom + fractal->shift_x) - (x / (fractal->zoom * zoom));
-        fractal->shift_y = (y / fractal->zoom + fractal->shift_y) - (y / (fractal->zoom * zoom));
-        fractal->zoom *= zoom;
-        if (fractal->iter < MAX_ITER)
-            ++fractal->iter;
-    }
-    else if (key == SCR_DOWN)
-    {
-        fractal->shift_x = (x / fractal->zoom + fractal->shift_x) - (x / (fractal->zoom / zoom));
-        fractal->shift_y = (y / fractal->zoom + fractal->shift_y) - (y / (fractal->zoom / zoom));
-        fractal->zoom /= zoom;
-    }
-    //render_init(fractal, window);
-    return (0);
+    if (key == 4)
+        zoom *= ZOOM;
+    else if (key == 5)
+
 }

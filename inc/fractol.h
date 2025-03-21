@@ -13,15 +13,7 @@
 # define SCR_UP 4
 # define SCR_DOWN 5
 # define KEY_ESC 65307
-
-typedef struct s_fractal
-{
-	char	*name;
-	double	zoom;
-	double	shift_x;
-	double	shift_y;
-	int		iter;
-}	t_fractal;
+# define ZOOM 1.2
 
 typedef struct s_window
 {
@@ -34,13 +26,19 @@ typedef struct s_window
 	int		endian;
 }	t_window;
 
-void fractal_init(t_fractal *fractal, char *name);
-void render_init(t_fractal *fractal, t_window *window);
-int mandelbrot_calc(t_fractal *fractal);
-int julia_calc(t_fractal *fractal);
-int close_window(t_window *window);
-int set_color(int iter);
-void ft_pixel_put(t_window *window, int x, int y, int color);
-void scroll_listener(int key, int x, int y, t_fractal *fractal, t_window *window);
+typedef struct s_fractal
+{
+	int		type;
+	double	shift_x;
+	double	shift_y;
+	int		iter;
+	double	mouse_x;
+	double	mouse_y;
+	struct s_window wnd;
+}	t_fractal;
+
+void fractal_init(t_fractal *fr, char *name);
+int mandelbrot_calc(t_fractal *fr);
+int julia_calc(t_fractal *fr);
 
 #endif
