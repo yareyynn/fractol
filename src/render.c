@@ -2,20 +2,14 @@
 
 int set_color(int iter)
 {
-    int color;
-    int red;
-    int green;
-    int blue;
-
     if (iter == MAX_ITER)
-        return (0xFF0000);
+        return (0x000000); // Siyah (Maksimum iterasyonda)
 
-    red = iter;
-    green = iter;
-    blue = iter;
-    color = (red << 16) + (green << 8) + blue;
+    int r = (iter * 9) % 256;
+    int g = (iter * 2) % 256;
+    int b = (iter * 15) % 256;
 
-    return (color);
+    return ((r << 16) | (g << 8) | b);
 }
 
 void ft_pixel_put(t_fractal *fr, int x, int y, int color)
@@ -26,16 +20,13 @@ void ft_pixel_put(t_fractal *fr, int x, int y, int color)
         close_window(fr);
         exit(1);
     }
-    fr->wnd.addr[(y * fr->wnd.line_len + x * (fr->wnd.bpp / 8))] = color;
+    int *pixel = (int *)(fr->wnd.addr + (y * fr->wnd.line_len + x * (fr->wnd.bpp / 8)));
+    *pixel = color;
+
 }
 
 void render_init(t_fractal *fr)
 {
-    double x;
-    double y;
-    int color;
-    int iter;
-
     fr->wnd.img = mlx_new_image(fr->wnd.mlx, WIDTH, HEIGHT);
     if(!fr->wnd.img)
     {
@@ -44,24 +35,33 @@ void render_init(t_fractal *fr)
         exit(1);
     }
 	fr->wnd.addr = mlx_get_data_addr(fr->wnd.img, &fr->wnd.bpp, &fr->wnd.line_len, &fr->wnd.endian);
+    fr->mouse_x = 0;
+    fr->mouse_y = 0;
+    fr->iter = 0;
+    render(fr);
+}
+
+void render(t_fractal *fr)
+{
+    double x;
+    double y;
+    int color;
+
     y = 0;
     while (y++ < HEIGHT)
     {
         x = 0;
         while (x++ < WIDTH)
         {
-            fr->shift_x = (double)((x - WIDTH / 2.0) * (4.0 / WIDTH) * fr->zoom);
-            fr->shift_y = (double)((y - HEIGHT / 2.0) * (4.0 / HEIGHT) * fr->zoom);
-
+            fr->shift_x = (double)((x - WIDTH / 2.0) * SCALE_X * fr->zoom);
+            fr->shift_y = (double)((y - HEIGHT / 2.0) * SCALE_Y * fr->zoom);
             if(fr->type == 1)
-                iter = mandelbrot_calc(fr);
+                fr->iter = mandelbrot_calc(fr);
             else if(fr->type == 2)
-                iter = julia_calc(fr);
-
-            color = set_color(iter);
+                fr->iter = julia_calc(fr);
+            color = set_color(fr->iter);
             ft_pixel_put(fr, x, y, color);
         }
     }
-    fr->iter = iter;
     mlx_put_image_to_window(fr->wnd.mlx, fr->wnd.win, fr->wnd.img, 0, 0);
 }

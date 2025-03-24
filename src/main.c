@@ -27,7 +27,7 @@ int main(int argc, char **argv){
 	render_init(&fr);
 	mlx_hook(fr.wnd.win, 17, 0, close_window, &fr);
 	mlx_mouse_hook(fr.wnd.win, scroll_listener, &fr);
-    //mlx_key_hook(fr.wnd.win, key_listener, &fr);
-	//mlx_hook(fr.wnd.win, 6, 1L << 6, mouse_move_listener, &fr);
+    mlx_key_hook(fr.wnd.win, key_listener, &fr);
+	mlx_hook(fr.wnd.win, 6, 1L << 6, mouse_move_listener, &fr);
 	mlx_loop(fr.wnd.mlx);
 }

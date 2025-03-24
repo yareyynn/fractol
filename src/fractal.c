@@ -5,12 +5,11 @@ void fractal_init(t_fractal *fr, char *name){
 		fr->type = 1;
 	else if(!ft_strncmp(name, "julia", 6))
 		fr->type = 2;
-	else if(ft_strncmp(name, "mandelbox", 10))
-		fr->type = 3;
 	else
 	{
-		ft_printf("Right arguement entry is: ./fractol <<fractal name>>\n");
-		exit(1);
+		ft_printf("Right arguement entry is: ./fractol <<fractal name>>\nAvailable fractals are: julia & mandelbrot\n");
+		close_window(fr);
+		exit(0);
 	}
 }
 
@@ -47,8 +46,8 @@ int julia_calc(t_fractal *fr)
 	i = 0;
 	while ((re * re + im * im) <= 4 && i++ < MAX_ITER)
 	{
-		re_temp = re * re - im * im - 0.70176;
-		im = 2.0 * re * im + 0.3842;
+		re_temp = re * re - im * im + fr->mouse_x;
+		im = 2.0 * re * im + fr->mouse_y;
 		re = re_temp;
 	}
 	return (i);
