@@ -14,7 +14,7 @@ OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(NAME_LIBFT) $(NAME_LIBMLX) $(OBJ)
+$(NAME): minilibx-linux $(NAME_LIBFT) $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(INCLUDES_H) $(NAME_LIBFT) -Lminilibx-linux -lmlx_Linux -lXext -lX11 -lm -o $(NAME)
 
 $(OBJ): %.o: %.c
@@ -23,8 +23,11 @@ $(OBJ): %.o: %.c
 $(NAME_LIBFT):
 	make -C libft
 
-$(NAME_LIBMLX):
-	make -C minilibx-linux
+minilibx-linux:
+	if [ ! -d "minilibx-linux" ]; then \
+		git clone https://github.com/42Paris/minilibx-linux.git minilibx-linux; \
+	fi
+	make -C minilibx-linux; \
 
 clean:
 	rm -f $(OBJ)
@@ -37,4 +40,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re minilibx-linux
