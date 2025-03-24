@@ -1,13 +1,21 @@
+#include "../inc/fractol.h"
+
 int scroll_listener(int key, int x, int y, t_fractal *fr)
 {
-    static int zoom;
+    (void)x;
+    (void)y;
 
-    zoom = ZOOM;
-    fr->mouse_x = (x - WIDTH / 2) / zoom + fr->shift_x;
-    fr->mouse_y = (y - HEIGHT / 2) / zoom + fr->shift_y;
+    if (key == 126)
+        fr->zoom *= ZOOM;
+    else if (key == 125)
+        fr->zoom /= ZOOM;
+    render_init(fr);
+    return 0;
+}
 
-    if (key == 4)
-        zoom *= ZOOM;
-    else if (key == 5)
-
+int close_window(t_fractal *fr)
+{
+        mlx_destroy_image(fr->wnd.mlx, fr->wnd.img);
+        mlx_destroy_window(fr->wnd.mlx, fr->wnd.win);
+        exit(0);
 }

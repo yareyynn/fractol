@@ -4,7 +4,7 @@
 # include "math.h"
 # include "unistd.h"
 # include "stdlib.h"
-# include "../minilibx-linux/mlx.h"
+# include "../minilibx/mlx.h"
 # include "../libft/libft.h"
 
 # define MAX_ITER 150
@@ -35,10 +35,16 @@ typedef struct s_fractal
 	double	mouse_x;
 	double	mouse_y;
 	struct s_window wnd;
+	double	zoom;
 }	t_fractal;
 
 void fractal_init(t_fractal *fr, char *name);
 int mandelbrot_calc(t_fractal *fr);
 int julia_calc(t_fractal *fr);
+void scroll_listener(int key, int x, int y, t_fractal *fr);
+int close_window(t_fractal *fr);
+int set_color(int iter);
+void ft_pixel_put(t_fractal *fr, int x, int y, int color);
+void render_init(t_fractal *fr);
 
 #endif

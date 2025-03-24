@@ -1,5 +1,4 @@
 #include "../inc/fractol.h"
-#include <stdio.h>
 
 void fractal_init(t_fractal *fr, char *name){
 	if(!ft_strncmp(name, "mandelbrot", 11))

@@ -1,12 +1,5 @@
-#include "fractol.h"
+#include "../inc/fractol.h"
 #include <stdio.h>
-
-int close_window(t_window *window)
-{
-        mlx_destroy_image(window->mlx, window->img);
-        mlx_destroy_window(window->mlx, window->win);
-        exit(0);
-}
 
 int set_color(int iter)
 {
@@ -26,50 +19,49 @@ int set_color(int iter)
     return (color);
 }
 
-void ft_pixel_put(t_window *window, int x, int y, int color)
+void ft_pixel_put(t_fractal *fr, int x, int y, int color)
 {
-    if (!window->img)
+    if (!fr->wnd.img)
     {
         ft_printf("Error: image is not created\n");
-        close_window(window);
+        close_window(fr->wnd.win);
         exit(1);
     }
-    window->addr[(y * window->line_len + x * (window->bpp / 8))] = color;
+    fr->wnd.addr[(y * fr->wnd.line_len + x * (fr->wnd.bpp / 8))] = color;
 }
 
-void render_init(t_fractal *fractal, t_window *window)
-{
+void render_init(t_fractal *fr){
     double x;
     double y;
     int color;
     int iter;
 
-    window->img = mlx_new_image(window->mlx, WIDTH, HEIGHT);
-    if(!window->img)
+    fr->wnd.img = mlx_new_image(fr->wnd.mlx, WIDTH, HEIGHT);
+    if(!fr->wnd.img)
     {
         ft_printf("Error: image is not created\n");
-        close_window(window);
+        close_window(fr->wnd.win);
         exit(1);
     }
-    window->addr = mlx_get_data_addr(window->img, &window->bpp, &window->line_len, &window->endian);
+    fr->wnd.addr = mlx_get_data_addr(fr->wnd.img, &fr->wnd.bpp, &fr->wnd.line_len, &fr->wnd.endian);
     y = 0;
     while (y++ < HEIGHT)
     {
         x = 0;
         while (x++ < WIDTH)
         {
-            fractal->shift_x = (double)((x - WIDTH / 2.0) * (4.0 / WIDTH));
-            fractal->shift_y = (double)((y - HEIGHT / 2.0) * (4.0 / HEIGHT));
+            fr->shift_x = (double)((x - WIDTH / 2.0) * (4.0 / WIDTH) * fr->zoom);
+            fr->shift_y = (double)((y - HEIGHT / 2.0) * (4.0 / HEIGHT) * fr->zoom);
 
-            if(!ft_strncmp(fractal->name, "mandelbrot",10))
-                iter = mandelbrot_calc(fractal);
-            else if(!ft_strncmp(fractal->name, "julia", 5))
-                iter = julia_calc(fractal);
+            if(fr->type == 1)
+                iter = mandelbrot_calc(fr);
+            else if(fr->type == 2)
+                iter = julia_calc(fr);
 
             color = set_color(iter);
-            ft_pixel_put(window, x, y, color);
+            ft_pixel_put(fr, x, y, color);
         }
     }
-    fractal->iter = iter;
-    mlx_put_image_to_window(window->mlx, window->win, window->img, 0, 0);
+    fr->iter = iter;
+    mlx_put_image_to_window(fr->wnd.mlx, fr->wnd.win, fr->wnd.img, 0, 0);
 }
