@@ -6,7 +6,7 @@
 /*   By: ysakarya <ysakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 21:18:57 by ysakarya          #+#    #+#             */
-/*   Updated: 2025/03/24 21:47:11 by ysakarya         ###   ########.fr       */
+/*   Updated: 2025/03/28 05:41:05 by ysakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,9 @@ void	render_init(t_fractal *fr)
 	}
 	fr->wnd.addr = mlx_get_data_addr(fr->wnd.img, &fr->wnd.bpp,
 			&fr->wnd.line_len, &fr->wnd.endian);
-	fr->mouse_x = 0;
-	fr->mouse_y = 0;
 	fr->iter = 0;
 	fr->zoom = 1;
+	fr->lock = 1;
 	render(fr);
 }
 

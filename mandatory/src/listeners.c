@@ -6,7 +6,7 @@
 /*   By: ysakarya <ysakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 21:30:40 by ysakarya          #+#    #+#             */
-/*   Updated: 2025/03/24 21:30:41 by ysakarya         ###   ########.fr       */
+/*   Updated: 2025/03/28 04:36:33 by ysakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	close_window(t_fractal *fr)
 
 int	mouse_move_listener(int x, int y, t_fractal *fr)
 {
-	if (fr->type == 2)
+	if (fr->type == 2 && !fr->lock)
 	{
 		fr->mouse_x = (double)((x - REV_X) * SCALE_X);
 		fr->mouse_y = (double)((y - REV_Y) * SCALE_Y);
@@ -55,5 +55,7 @@ int	key_listener(int key, t_fractal *fr)
 {
 	if (key == KEY_ESC)
 		close_window(fr);
+	else if (key == KEY_L)
+		fr->lock = !fr->lock;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ysakarya <ysakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 00:13:36 by ysakarya          #+#    #+#             */
-/*   Updated: 2025/03/14 18:15:24 by ysakarya         ###   ########.fr       */
+/*   Updated: 2025/03/27 05:51:02 by ysakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	ft_putstr(char *s, int *count)
 	}
 }
 
-static void filterp(unsigned long t, int *count)
+static void	filterp(unsigned long t, int *count)
 {
 	if (t != 0)
 		putbase('p', t, count, "0123456789abcdef");

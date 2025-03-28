@@ -6,7 +6,7 @@
 /*   By: ysakarya <ysakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 19:57:21 by ysakarya          #+#    #+#             */
-/*   Updated: 2025/03/14 18:16:04 by ysakarya         ###   ########.fr       */
+/*   Updated: 2025/03/27 05:51:52 by ysakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
-int	ft_printf(const char *str, ...);
+int		ft_printf(const char *str, ...);
 
 #endif

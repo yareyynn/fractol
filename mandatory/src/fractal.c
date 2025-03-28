@@ -6,7 +6,7 @@
 /*   By: ysakarya <ysakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 21:32:34 by ysakarya          #+#    #+#             */
-/*   Updated: 2025/03/24 21:32:35 by ysakarya         ###   ########.fr       */
+/*   Updated: 2025/03/28 04:20:16 by ysakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,6 @@ void	fractal_init(t_fractal *fr, char *name)
 		fr->type = 1;
 	else if (!ft_strncmp(name, "julia", 6))
 		fr->type = 2;
-	else
-	{
-		ft_printf("Right arguement entry is: ./fractol <<fractol name>>\n");
-		ft_printf("Available fractals are: julia & mandelbrot\n");
-		mlx_destroy_window(fr->wnd.mlx, fr->wnd.win);
-		mlx_destroy_display(fr->wnd.mlx);
-		free(fr->wnd.mlx);
-		exit(0);
-	}
 }
 
 int	mandelbrot_calc(t_fractal *fr)
