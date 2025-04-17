@@ -6,7 +6,7 @@
 /*   By: ysakarya <ysakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 21:22:31 by ysakarya          #+#    #+#             */
-/*   Updated: 2025/03/28 07:31:59 by ysakarya         ###   ########.fr       */
+/*   Updated: 2025/03/28 08:12:15 by ysakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,14 @@ int	atof_cntl(char *arg)
 {
 	int	i;
 	int	flag;
-	int	flag2;
 
-	i = -1;
+	i = 0;
 	flag = 0;
-	flag2 = 0;
+	while (arg[i] == ' ' || (arg[i] >= 9 && arg[i] <= 13))
+		i++;
+	if (arg[i] == '-' || arg[i] == '+')
+		i++;
+	i--;
 	while (arg[++i])
 	{
 		if (arg[i] == '.' && flag == 0)
@@ -108,13 +111,7 @@ int	atof_cntl(char *arg)
 			flag = 1;
 			i++;
 		}
-		else if ((arg[i] == '+' || arg[i] == '-') && flag2 == 0)
-		{
-			flag2 = 1;
-			i++;
-		}
-		if (!ft_isdigit(arg[i]) && \
-			!((arg[i] != '-' || arg[i] != '+') && flag2 == 0))
+		if (!ft_isdigit(arg[i]))
 			return (0);
 	}
 	return (1);

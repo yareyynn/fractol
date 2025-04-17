@@ -6,7 +6,7 @@
 /*   By: ysakarya <ysakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 07:32:37 by ysakarya          #+#    #+#             */
-/*   Updated: 2025/03/28 07:36:20 by ysakarya         ###   ########.fr       */
+/*   Updated: 2025/03/28 07:39:37 by ysakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define SCR_DOWN 5
 # define KEY_ESC 65307
 # define ZOOM 1.1
-# define SCALE_X 0.05
-# define SCALE_Y 0.05
+# define SCALE_X 0.005
+# define SCALE_Y 0.005
 # define REV_X 400.0
 # define REV_Y 400.0
 # define KEY_L 108
